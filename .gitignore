@@ -1,2 +1,5 @@
 *.pvd
 *.vtu
+*~
+
+__pycache__
