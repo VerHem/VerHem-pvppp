@@ -11,17 +11,17 @@ from vtk.util.numpy_support import numpy_to_vtk
 import sys
 
 import os
-# sys.path.append("./SCC-GL-calculator")
-# import Module_GLSCC_calculator as sc
+sys.path.append("/scratch/project_2006155/string-monopole-VerHem-scc-3d-xyz-AdGR-retangle-w-cycle-ReleaseDealii/A-phase-StringMonopole-dealii-9.5-Trilinos-14.4-VI/GL-Calculator")
+import Module_GLSCC_calculator as gl
 
 import numpy as np
 np.set_printoptions(precision=10)
 
 from paraview.util.vtkAlgorithm import smproxy, smproperty, smdomain
 
-@smproxy.filter(label="PyAlg-VerHem-lVector-AMatrix-MPI Filter")
+@smproxy.filter(label="PyAlg_VerHem_lVector_AMatrix_MPI Filter")
 @smproperty.input(name="Input")
-class PyAlg-VerHem-lVector-AMatrix-MPI(VTKPythonAlgorithmBase):
+class PyAlg_VerHem_lVector_AMatrix_MPI(VTKPythonAlgorithmBase):
     def __init__(self):
         VTKPythonAlgorithmBase.__init__(
             self, nInputPorts=1, nOutputPorts=1
@@ -86,14 +86,15 @@ class PyAlg-VerHem-lVector-AMatrix-MPI(VTKPythonAlgorithmBase):
             # print("A = ",A)    
 
             # compute gapA
-            Delta_A2 = np.trace(A.conj().T @ A).real
+            # Delta_A2 = np.trace(A.conj().T @ A).real
+            Delta_A2 = (gl.gapA(self.pre, self.red_t))**2
 
             # compute Im(A^\Degger. A)
             imAdAinvDelta2 = ((A.conj().T @ A).imag)/Delta_A2
 
-            l1_arr[i] = epsilon(1, 2, 0) * imAdAinvDelta2[1, 2] + epsilon(2, 1, 0) * imAdAinvDelta2[2, 1]
-            l2_arr[i] = epsilon(0, 2, 1) * imAdAinvDelta2[0, 2] + epsilon(2, 0, 1) * imAdAinvDelta2[2, 0]
-            l3_arr[i] = epsilon(0, 1, 2) * imAdAinvDelta2[0, 1] + epsilon(1, 0, 2) * imAdAinvDelta2[1, 0]
+            l1_arr[i] = self.epsilon(1, 2, 0) * imAdAinvDelta2[1, 2] + self.epsilon(2, 1, 0) * imAdAinvDelta2[2, 1]
+            l2_arr[i] = self.epsilon(0, 2, 1) * imAdAinvDelta2[0, 2] + self.epsilon(2, 0, 1) * imAdAinvDelta2[2, 0]
+            l3_arr[i] = self.epsilon(0, 1, 2) * imAdAinvDelta2[0, 1] + self.epsilon(1, 0, 2) * imAdAinvDelta2[1, 0]
             
                                    
             ############################################
@@ -134,19 +135,43 @@ class PyAlg-VerHem-lVector-AMatrix-MPI(VTKPythonAlgorithmBase):
         
         return 1
 
+    @smproperty.xml("""
+        <DoubleVectorProperty name="pressure"
+            number_of_elements="1"
+            default_values="0.0"
+            command="SetPressure">
+            <DoubleRangeDomain name="range" />
+            <Documentation>Set pressure for gap calculation</Documentation>
+        </DoubleVectorProperty>""")
+    def SetPressure(self, p):
+        self.pre = p
+        self.Modified()
+
+    @smproperty.xml("""
+        <DoubleVectorProperty name="red_t"
+            number_of_elements="1"
+            default_values="0.0"
+            command="SetReducedT">
+            <DoubleRangeDomain name="range" />
+            <Documentation>Set reduced Temperature for gap calculation</Documentation>
+        </DoubleVectorProperty>""")
+    def SetReducedT(self, t):
+        self.red_t = t
+        self.Modified()
+        
     def epsilon(self, i, j, k):
         '''Lev-Civita symbol'''
         # Check for repeated indices
         if i == j or j == k or i == k:
-            return 0
+            return 0.
     
         # Check for even permutations
         if (i, j, k) in [(0, 1, 2), (1, 2, 0), (2, 0, 1)]:
-            return 1
+            return 1.
     
         # Check for odd permutations
         if (i, j, k) in [(2, 1, 0), (1, 0, 2), (0, 2, 1)]:
-            return -1
+            return -1.
         
 
         
