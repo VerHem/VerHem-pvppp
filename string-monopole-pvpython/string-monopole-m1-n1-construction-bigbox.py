@@ -13,7 +13,7 @@ paraview.simple._DisableFirstRenderCameraReset()
 U1_phi = 0.605
 
 # pvtu data path
-solutionData = '/scratch/project_2006155/string-monopole-VerHem-scc-3d-xyz-AdGR-retangle-w-cycle-ReleaseDealii/A-phase-StringMonopole-dealii-9.5-Trilinos-14.4-VI/refine-cycle_3-Solution-13-32MPI-Ranks/solution_13_32MPI_Ranks.pvtu'
+solutionData = '/home/heidi/Documents/string-monopole/test-dealii-9.5-Trilinos-14.4-VI/refine-cycle_3/u11-v11-solution-13-8-MPI.pvtu'
 
 # create a new 'XML Partitioned Unstructured Grid Reader'
 # SMSolution_pvtu = XMLPartitionedUnstructuredGridReader(registrationName='SMSolution_pvtu', FileName=['/home/heidi/Documents/VerHem-project/Data-and-Visualization/lumi/test-dealii-9.5-Trilinos-14.4-IV/refine-cycle_1/solution_14.pvtu'])
@@ -31,7 +31,7 @@ calculator1.ResultArrayName = 'm1'
 calculator1.Function = '(sqrt(2)*cos(0.3753)*(u_11 + v_11*tan(0.3753)))/2.4973256688320586'
 
 # create a new 'Calculator'
-calculator4 = Calculator(registrationName='Calculator4', Input=calculator3)
+calculator4 = Calculator(registrationName='Calculator4', Input=calculator1)
 # Properties modified on calculator4
 calculator4.ResultArrayName = 'n1'
 calculator4.Function = '(sqrt(2)*(v_11*cos(0.3753) - u_11*sin(0.3753)))/2.4973256688320586'
