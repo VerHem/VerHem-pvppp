@@ -1,5 +1,7 @@
 *.pvd
 *.vtu
+*.pdf
+*.png
 *~
 
 __pycache__
