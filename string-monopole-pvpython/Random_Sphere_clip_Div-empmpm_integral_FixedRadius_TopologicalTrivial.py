@@ -8,15 +8,15 @@ import numpy as np
 
 # ---------------- script control settings ----------------
 data_loading_path = '/home/heidi/Documents/string-monopole/test-dealii-9.5-Trilinos-14.4-VI/refine-cycle_3/Divergence_empmpm_of_StringMonople_Curvature-solutioin-13-8-MPI.pvtu'
-save_file = '/home/heidi/Documents/VerHem-project/VerHem-Visualization-Images/Div_empmpm_integrals-TopologicalTrivial-Solution-13-8-MPI.csv'
+save_file = '/home/heidi/Documents/VerHem-project/VerHem-Visualization-Images/Div_empmpm_integrals-TopologicalTrivial-Radius40xi0GL-Solution-13-8-MPI.csv'
 
 array_name = 'div_empmpm'      # name of the scalar array to integrate
-radius = 80.0             # sphere clip radius
+radius = 40.0             # 80, sphere clip radius
 n_samples = 100          # number of random spheres volume integral
 
-x_min, x_max = -70.0, -30.0
-y_min, y_max = -70.0, -30.0
-z_min, z_max = 60.0, 70.0 # (-60.0, -50.0)
+x_min, x_max = -80.0, -50.0
+y_min, y_max = -80.0, -50.0
+z_min, z_max = 40.0, 60.0 # (-60.0, -50.0)
 
 seed = 7886
 # -----------------------------------------------
