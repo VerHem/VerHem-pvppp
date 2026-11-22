@@ -8,15 +8,28 @@ import numpy as np
 
 # ---------------- script control settings ----------------
 data_loading_path = '/home/heidi/Documents/string-monopole/test-dealii-9.5-Trilinos-14.4-VI/refine-cycle_3/Divergence_empmpm_of_StringMonople_Curvature-solutioin-13-8-MPI.pvtu'
-save_file = '/home/heidi/Documents/VerHem-project/VerHem-Visualization-Images/Div_empmpm_integrals-monopole-Radius40xi0GL-Solution-13-8-MPI.csv'
+save_file = '/home/heidi/Documents/VerHem-project/VerHem-Visualization-Images/Div_empmpm_integrals-monopole-Radius100xi0GL-Solution-13-8-MPI.csv'
 
 array_name = 'div_empmpm'      # name of the scalar array to integrate
-radius = 40.0             # 80, sphere clip radius
 n_samples = 100          # number of random spheres volume integral
 
-x_min, x_max = -80.0, -50.0
-y_min, y_max = -80.0, -50.0
-z_min, z_max = -60.0, -40.0 # (-60.0, -50.0)
+# -----------------------------------
+# r, x, y, z
+# 120, 65-75, 65-75, -120--110
+# 110, 65-75, 65-75, -100--90
+# 100, -75--65, -75--65, -90--80
+# 90, 65-75, 65-75, -90--80
+# 80, 65-75, 65-75, -80--70
+# 70, 65-75, 65-75, -70--60
+# 60, 65-75, 65-75, -60--50
+# 50, 65-75, 65-75, -50--40
+# 40, 65-75, 65-75, -40--30
+# 30, 65-75, 65-75, -40--30; 30, 60-70, 60-70, -40--30
+# 20, 65-75, 65-75, -40--30
+radius = 100.0             # 80, sphere clip radius
+x_min, x_max = -75.0, -65.0
+y_min, y_max = -75.0, -65.0
+z_min, z_max = -90.0, -80.0 # (-60.0, -50.0)
 
 seed = 7886
 # -----------------------------------------------
