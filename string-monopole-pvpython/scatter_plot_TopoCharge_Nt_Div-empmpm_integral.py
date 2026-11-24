@@ -105,9 +105,9 @@ box_left, box_right, box_bottom, box_top = 0.15, 0.97, 0.15, 0.98
 label_fontsize = 28
 tick_fontsize = 22
 legend_fontsize = 16
-marker_size_1 = 10
-marker_size_2 = 8
-MarkerEdgeWidth = 2.5
+marker_size_1 = 15
+marker_size_2 = 12
+MarkerEdgeWidth = 3.5
 
 fig, ax = plt.subplots(figsize=(8, 6))
 
